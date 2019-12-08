@@ -29,6 +29,10 @@ class Memory {
         }
     }
 
+    dump() {
+        return [...this.bytes.values()];
+    }
+
     setMode(mode) {
         if (!VALID_MODES.includes(mode)) {
             throw new Error("Invalid mode: ", mode);
@@ -61,19 +65,19 @@ class Memory {
     }
 
     _readIndirect(address) {
-        let dataAddress = Number(this.bytes.get(address));
+        let dataAddress = this.bytes.get(address);
 
         return this._readDirect(dataAddress);
     }
 
     _writeDirect(address, data) {
-        this.bytes.set(address, data.toString());
+        this.bytes.set(address, Number(data));
 
         return this._readDirect(address);
     }
 
     _writeIndirect(address, data) {
-        let dataAddress = Number(this.bytes.get(address));
+        let dataAddress = this.bytes.get(address);
 
         return this._writeDirect(dataAddress, data);
     }

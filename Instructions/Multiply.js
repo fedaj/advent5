@@ -1,10 +1,10 @@
 const Instruction = require("./Instruction");
 
 class Multiply extends Instruction {
-    constructor(programCounter, memory) {
+    constructor(programCounter, devices) {
         let numOperands = 2;
         let continueExecution = true;
-        super(programCounter, memory, numOperands, continueExecution);
+        super(programCounter, devices.memory, numOperands, continueExecution);
     }
 
     execute() {

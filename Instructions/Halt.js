@@ -1,10 +1,10 @@
 const Instruction = require("./Instruction");
 
 class Halt extends Instruction {
-    constructor(programCounter, memory) {
+    constructor(programCounter, devices) {
         let numOperands = 0;
         let continueExecution = false;
-        super(programCounter, memory, numOperands, continueExecution);
+        super(programCounter, devices.memory, numOperands, continueExecution);
     }
 
     execute() {

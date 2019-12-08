@@ -12,8 +12,11 @@ class FirstPart {
     }
 
     run() {
-        let output = this.computer.computeProgram(this.program);
-        console.log("First part:", output);
+        let result = this.computer.computeProgram(this.program);
+        console.log("Memory's first position:", result.memory[0]);
+        if (undefined !== result.output) {
+            console.log("Output:", result.output);
+        }
     }
 }
 

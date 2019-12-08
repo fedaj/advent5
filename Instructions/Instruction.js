@@ -17,10 +17,10 @@ class Instruction {
 
         let modes = this._getOperationModes(programCounter);
 
-        for (let i = 1; i <= this.numOperands; i++) {
-            let operandAddress = programCounter + i;
-            this.memory.setMode(modes[i - 1]);
-            let operand = Number(this.memory.read(operandAddress));
+        for (let i = 0; i < this.numOperands; i++) {
+            let operandAddress = programCounter + i + 1; // skip opcode
+            this.memory.setMode(modes[i]);
+            let operand = this.memory.read(operandAddress);
             this.operands.push(operand);
         }
     }
@@ -36,12 +36,10 @@ class Instruction {
     _getOperationModes(programCounter) {
         this.memory.setMode(MODE_IMMEDIATE);
         let opcodeAndModes = this.memory.read(programCounter);
-        let modes = opcodeAndModes.slice(0, -2).split("").map((char) => Number(char));
-        if (modes.length < this.numOperands) {
-            let missingModesAmount = this.numOperands - modes.length;
-            for (let i = modes.length; i < missingModesAmount; i++) {
-                modes.push(MODE_POSITION);
-            }
+        let modes = [];
+        for (let i = 2; i < this.numOperands + 2; i++) {
+            let mask = Math.pow(10, i);
+            modes.push(Math.floor(opcodeAndModes / mask));
         }
 
         return modes;

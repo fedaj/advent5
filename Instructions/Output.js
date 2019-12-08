@@ -1,18 +1,20 @@
 const Instruction = require("./Instruction");
 
-class Add extends Instruction {
+class Output extends Instruction {
     constructor(programCounter, devices) {
-        let numOperands = 2;
+        let numOperands = 1;
         let continueExecution = true;
+
+        this.outputDevice = devices.output;
+
         super(programCounter, devices.memory, numOperands, continueExecution);
     }
 
     execute() {
-        let result = this.operands[0] + this.operands[1];
-        this._saveResult(result);
+        this.outputDevice.write(this.operands[0]);
 
         return this.continueExecution;
     }
 }
 
-module.exports = Add;
+module.exports = Output;
