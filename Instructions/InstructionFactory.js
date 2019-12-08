@@ -5,7 +5,7 @@ const Halt = require("./Halt");
 const ADD = 1;
 const MULTIPLY = 2;
 const HALT = 99;
-const MODE_DIRECT = 1;
+const MODE_IMMEDIATE = 1;
 
 class InstructionFactory {
     constructor(memory) {
@@ -34,8 +34,10 @@ class InstructionFactory {
     }
 
     _getOpcode(programCounter) {
-        this.memory.setMode(MODE_DIRECT);
-        return this.memory.read(programCounter);
+        this.memory.setMode(MODE_IMMEDIATE);
+        let opcodeAndModes = this.memory.read(programCounter);
+        let opcode = Number(opcodeAndModes.slice(-2));
+        return opcode;
     }
 }
 

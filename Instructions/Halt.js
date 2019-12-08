@@ -1,18 +1,18 @@
 const Instruction = require("./Instruction");
 
-/* FIXME: importar constantes de módulo Memory */
-const MODE_DIRECT = 1;
-
 class Halt extends Instruction {
     constructor(programCounter, memory) {
         let numOperands = 0;
         let continueExecution = false;
-        let memoryMode = MODE_DIRECT;
-        super(programCounter, memory, memoryMode, numOperands, continueExecution);
+        super(programCounter, memory, numOperands, continueExecution);
     }
 
     execute() {
         return this.continueExecution;
+    }
+
+    get size() {
+        return 1; // opcode without parameters
     }
 }
 

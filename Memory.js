@@ -1,15 +1,14 @@
-const MODE_DIRECT = 1;
-const MODE_INDIRECT = 2;
+const MODE_POSITION = 0;
+const MODE_IMMEDIATE = 1;
 const VALID_MODES = [
-    MODE_DIRECT,
-    MODE_INDIRECT
+    MODE_IMMEDIATE,
+    MODE_POSITION
 ];
-const START_ADDRESS = 0;
 
 class Memory {
     constructor() {
         this.bytes = new Map();
-        this.mode = MODE_DIRECT;
+        this.mode = MODE_IMMEDIATE;
     }
 
     clear() {
@@ -32,7 +31,7 @@ class Memory {
 
     setMode(mode) {
         if (!VALID_MODES.includes(mode)) {
-            throw new Error("Invalid mode");
+            throw new Error("Invalid mode: ", mode);
         }
 
         this.mode = mode;
@@ -41,7 +40,7 @@ class Memory {
     }
 
     read(address) {
-        if (this.mode == MODE_DIRECT) {
+        if (this.mode == MODE_IMMEDIATE) {
             return this._readDirect(address);
         } else {
             return this._readIndirect(address);
@@ -49,7 +48,7 @@ class Memory {
     }
 
     write(address, data) {
-        if (this.mode == MODE_DIRECT) {
+        if (this.mode == MODE_IMMEDIATE) {
             return this._writeDirect(address, data);
         } else {
             return this._writeIndirect(address, data);
@@ -62,19 +61,19 @@ class Memory {
     }
 
     _readIndirect(address) {
-        let dataAddress = this.bytes.get(address);
+        let dataAddress = Number(this.bytes.get(address));
 
         return this._readDirect(dataAddress);
     }
 
     _writeDirect(address, data) {
-        this.bytes.set(address, data);
+        this.bytes.set(address, data.toString());
 
         return this._readDirect(address);
     }
 
     _writeIndirect(address, data) {
-        let dataAddress = this.bytes.get(address);
+        let dataAddress = Number(this.bytes.get(address));
 
         return this._writeDirect(dataAddress, data);
     }

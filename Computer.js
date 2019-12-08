@@ -12,8 +12,7 @@ class Computer {
             new InstructionFactory(this.memory);
     }
 
-    computeProgram(input) {
-        let program = input.slice(0);
+    computeProgram(program) {
         let programCounter = 0;
 
         this.memory.clear();
@@ -27,7 +26,7 @@ class Computer {
             programCounter += instruction.size;
         }
 
-        return this._getOutput();
+        return Number(this._getOutput());
     }
 
     _getOutput() {
