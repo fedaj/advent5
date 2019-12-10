@@ -22,17 +22,14 @@ class Computer {
     }
 
     computeProgram(program) {
-        let programCounter = 0;
+        let instructionPointer = 0;
 
         this.memory.clear();
         this.memory.load(START_ADDRESS, program);
 
-        let continueExecution = true;
-
-        while (continueExecution && programCounter < this.memory.size) {
-            let instruction = this.instructionFactory.getInstruction(programCounter);
-            continueExecution = instruction.execute();
-            programCounter += instruction.size;
+        while (instructionPointer >= 0) {
+            let instruction = this.instructionFactory.getInstruction(instructionPointer);
+            instructionPointer = instruction.execute();
         }
 
         return {

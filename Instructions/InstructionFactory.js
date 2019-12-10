@@ -19,8 +19,8 @@ class InstructionFactory {
         this.instruction = Halt;
     }
 
-    getInstruction(programCounter) {
-        let opcode = this._getOpcode(programCounter);
+    getInstruction(instructionPointer) {
+        let opcode = this._getOpcode(instructionPointer);
         let devices = { memory: this.memory };
 
         switch (opcode) {
@@ -45,12 +45,12 @@ class InstructionFactory {
                 throw new Error("Unsupported opcode: " + opcode);
         }
 
-        return new this.instruction(programCounter, devices);
+        return new this.instruction(instructionPointer, devices);
     }
 
-    _getOpcode(programCounter) {
+    _getOpcode(instructionPointer) {
         this.memory.setMode(MODE_IMMEDIATE);
-        let opcodeAndModes = this.memory.read(programCounter);
+        let opcodeAndModes = this.memory.read(instructionPointer);
         let opcode = opcodeAndModes % 100;
         return opcode;
     }

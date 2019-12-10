@@ -38,7 +38,7 @@ const PROGRAM = [
 
 class FirstPart {
     constructor() {
-        let input = new Input([1]);
+        let input = new Input([5]);
         this.computer = new Computer(null, input, null, null);
 
         this.program = PROGRAM.slice(0);

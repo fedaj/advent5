@@ -1,6 +1,6 @@
 class Input {
-    constructor() {
-        this.input = [1];
+    constructor(values) {
+        this.input = values;
     }
 
     read() {

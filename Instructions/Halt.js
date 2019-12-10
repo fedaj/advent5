@@ -1,18 +1,13 @@
 const Instruction = require("./Instruction");
 
 class Halt extends Instruction {
-    constructor(programCounter, devices) {
+    constructor(instructionPointer, devices) {
         let numOperands = 0;
-        let continueExecution = false;
-        super(programCounter, devices.memory, numOperands, continueExecution);
+        super(instructionPointer, devices.memory, numOperands);
     }
 
     execute() {
-        return this.continueExecution;
-    }
-
-    get size() {
-        return 1; // opcode without parameters
+        return -1;
     }
 }
 

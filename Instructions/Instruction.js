@@ -4,38 +4,32 @@ const MODE_IMMEDIATE = 1;
 class Instruction {
 
     constructor(
-        programCounter,
+        instructionPointer,
         memory,
-        numOperands,
-        continueExecution
+        numOperands
     ) {
         this.memory = memory;
         this.numOperands = numOperands;
-        this.continueExecution = continueExecution;
-        this.resultAddress = programCounter + this.numOperands + 1;
+        this.resultAddress = instructionPointer + this.numOperands + 1;
         this.operands = [];
 
-        let modes = this._getOperationModes(programCounter);
+        let modes = this._getOperationModes(instructionPointer);
 
         for (let i = 0; i < this.numOperands; i++) {
-            let operandAddress = programCounter + i + 1; // skip opcode
+            let operandAddress = instructionPointer + i + 1; // skip opcode
             this.memory.setMode(modes[i]);
             let operand = this.memory.read(operandAddress);
             this.operands.push(operand);
         }
     }
 
-    get size() {
-        return this.numOperands + 2; // opcode + operands + result memory positions
-    }
-
     execute() {
         return null;
     }
 
-    _getOperationModes(programCounter) {
+    _getOperationModes(instructionPointer) {
         this.memory.setMode(MODE_IMMEDIATE);
-        let opcodeAndModes = this.memory.read(programCounter);
+        let opcodeAndModes = this.memory.read(instructionPointer);
         let modes = [];
         for (let i = this.numOperands; i > 0; i--) {
             let mask = Math.pow(10, i + 1);

@@ -1,20 +1,21 @@
 const Instruction = require("./Instruction");
 
-class Input extends Instruction {
-    constructor(programCounter, devices) {
-        let numOperands = 0;
-        let continueExecution = true;
+const INSTRUCTION_SIZE = 2;
 
-        super(programCounter, devices.memory, numOperands, continueExecution);
+class Input extends Instruction {
+    constructor(instructionPointer, devices) {
+        let numOperands = 0;
+        super(instructionPointer, devices.memory, numOperands);
 
         this.inputDevice = devices.input;
+        this.instructionPointer = instructionPointer;
     }
 
     execute() {
         let result = this.inputDevice.read();
         this._saveResult(result);
 
-        return this.continueExecution;
+        return this.instructionPointer + INSTRUCTION_SIZE;
     }
 }
 

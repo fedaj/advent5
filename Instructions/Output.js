@@ -1,23 +1,20 @@
 const Instruction = require("./Instruction");
 
-class Output extends Instruction {
-    constructor(programCounter, devices) {
-        let numOperands = 1;
-        let continueExecution = true;
+const INSTRUCTION_SIZE = 2;
 
-        super(programCounter, devices.memory, numOperands, continueExecution);
+class Output extends Instruction {
+    constructor(instructionPointer, devices) {
+        let numOperands = 1;
+        super(instructionPointer, devices.memory, numOperands);
 
         this.outputDevice = devices.output;
+        this.instructionPointer = instructionPointer;
     }
 
     execute() {
         this.outputDevice.write(this.operands[0]);
 
-        return this.continueExecution;
-    }
-
-    get size() {
-        return 2; // opcode + operand
+        return this.instructionPointer + INSTRUCTION_SIZE;
     }
 }
 
