@@ -29,7 +29,7 @@ class Computer {
 
         let continueExecution = true;
 
-        while (continueExecution) {
+        while (continueExecution && programCounter < this.memory.size) {
             let instruction = this.instructionFactory.getInstruction(programCounter);
             continueExecution = instruction.execute();
             programCounter += instruction.size;

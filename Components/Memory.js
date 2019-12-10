@@ -33,6 +33,10 @@ class Memory {
         return [...this.bytes.values()];
     }
 
+    get size() {
+        return this.bytes.size;
+    }
+
     setMode(mode) {
         if (!VALID_MODES.includes(mode)) {
             throw new Error("Invalid mode: ", mode);

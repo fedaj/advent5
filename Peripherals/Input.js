@@ -1,5 +1,5 @@
 class Input {
-    construtor() {
+    constructor() {
         this.input = [1];
     }
 

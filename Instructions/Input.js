@@ -5,9 +5,9 @@ class Input extends Instruction {
         let numOperands = 0;
         let continueExecution = true;
 
-        this.inputDevice = devices.input;
-
         super(programCounter, devices.memory, numOperands, continueExecution);
+
+        this.inputDevice = devices.input;
     }
 
     execute() {

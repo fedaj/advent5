@@ -1,10 +1,10 @@
 class Output {
-    construtor() {
+    constructor() {
         this.output = [];
     }
 
-    write() {
-        return this.output.push();
+    write(value) {
+        this.output.push(value);
     }
 
     dump() {

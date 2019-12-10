@@ -5,15 +5,19 @@ class Output extends Instruction {
         let numOperands = 1;
         let continueExecution = true;
 
-        this.outputDevice = devices.output;
-
         super(programCounter, devices.memory, numOperands, continueExecution);
+
+        this.outputDevice = devices.output;
     }
 
     execute() {
         this.outputDevice.write(this.operands[0]);
 
         return this.continueExecution;
+    }
+
+    get size() {
+        return 2; // opcode + operand
     }
 }
 

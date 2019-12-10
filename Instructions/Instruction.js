@@ -37,9 +37,11 @@ class Instruction {
         this.memory.setMode(MODE_IMMEDIATE);
         let opcodeAndModes = this.memory.read(programCounter);
         let modes = [];
-        for (let i = 2; i < this.numOperands + 2; i++) {
-            let mask = Math.pow(10, i);
-            modes.push(Math.floor(opcodeAndModes / mask));
+        for (let i = this.numOperands; i > 0; i--) {
+            let mask = Math.pow(10, i + 1);
+            let mode = Math.floor(opcodeAndModes / mask);
+            modes.unshift(mode);
+            opcodeAndModes = opcodeAndModes % mask;
         }
 
         return modes;
